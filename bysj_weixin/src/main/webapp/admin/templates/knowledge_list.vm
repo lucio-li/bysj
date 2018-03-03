@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title>知识库</title>
+<link rel="stylesheet" href="../admin/css/weui.css"/>
+<link rel="stylesheet" href="../admin/css/knowledge_list.css"/>
+</head>
+<body>
+<div class="page" style="padding: 3px;">
+    <div class="page__bd">
+        <div class="weui-search-bar" id="searchBar" style="height: 44px;">
+            <div class="weui-search-bar__form">
+                <div class="weui-search-bar__box">
+                    <i class="weui-icon-search"></i>
+                    <input type="search" class="weui-search-bar__input" id="txtSearchTitle" placeholder="搜索">
+                    <a href="javascript:fnSearchClear();" class="weui-icon-clear"></a>
+                </div>
+                <label class="weui-search-bar__label" id="searchText">
+                    <i class="weui-icon-search"></i>
+                    <span>搜索</span>
+                </label>
+            </div>
+            <a href="javascript:void(0);" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+        </div>
+    </div>
+    <div id="knowledgePath" class="weui-cells__title">知识库</div>
+    <div class="weui-cells">
+        <!-- 选择库 -->
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+            <div class="weui-cell__hd"><label class="weui-label">所属库</label></div>
+            <div class="weui-cell__bd">
+                <select id="libraryType" class="weui-select">
+                    #foreach($library in $libraryList)
+                        <option value="$library">$library</option>
+                    #end
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="weui-cells">
+        <!-- 选择一级目录 -->
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+            <div class="weui-cell__hd"><label class="weui-label">1级目录</label></div>
+            <div class="weui-cell__bd">
+                <select id="catalogFirst" class="weui-select">
+                    <option value="all">全部</option>
+                    #foreach($catalog in $catalogFirst)
+                        <option value="$catalog.code">$catalog.getName()</option>
+                    #end
+                </select>
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_select weui-cell_select-after" id="catalogSecondPart"  hidden >
+            <div class="weui-cell__hd"><label class="weui-label">2级目录</label></div>
+            <div class="weui-cell__bd">
+                <select id="catalogSecond" class="weui-select">
+
+                </select>
+            </div>
+        </div>
+
+        <div class="weui-media-box weui-media-box_small-appmsg weui-cells">
+            #foreach($content in $contentList)
+                <a class="weui-cell weui-cell_access" href="javascript:viewContent(72)">
+                    <div class="weui-cell__bd weui-cell_primary">
+                        <h4 class="weui-media-box__title">$content.title</h4>
+    ##                    <p  class="weui-media-box__desc">        荔枝蒂蛀虫（Comopomorpha sinensis）是荔枝、龙眼的主要蛀果害虫，遍布我国各荔枝主产区，在印度、泰国、南非等国也有分布。该虫蛀食荔枝、龙眼果实，幼果期果核被蛀食，引起大量落果；在成果期，幼虫在果蒂与果核之间取食，留下黑褐色粉末状的虫粪，…</p>
+                    </div>
+                    <span class="weui-cell__ft"></span>
+                </a>
+            #end
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="../admin/js/jquery.js"></script>
+<script>
+    $(function(){
+        var searchBar = $('#searchBar'),
+        searchResult = $('#searchResult'),
+        searchText = $('#searchText'),
+        searchInput = $('#txtSearchTitle'),
+        searchClear = $('#searchClear'),
+        searchCancel = $('#searchCancel');
+
+        function hideSearchResult(){
+            searchResult.hide();
+            searchInput.val('');
+        }
+        function cancelSearch(){
+            hideSearchResult();
+            searchBar.removeClass('weui-search-bar_focusing');
+            searchText.show();
+        }
+
+        searchText.on('click', function() {
+          searchBar.addClass('weui-search-bar_focusing')
+          searchInput.focus()
+        })
+        searchInput
+            .on('blur', function () {
+                if(!this.value.length) cancelSearch();
+            })
+            .on('input', function(){
+                if(this.value.length) {
+                    searchResult.show();
+                } else {
+                    searchResult.hide();
+                }
+            });
+        searchClear.on('click', function(){
+      hideSearchResult();
+        searchInput.focus();
+      });
+        searchCancel.on('click', function(){
+      cancelSearch();
+        searchInput.blur();
+      });
+    });
+</script>
+<script src="../admin/js/knowledge_list.js"></script>
+</body>
+</html>

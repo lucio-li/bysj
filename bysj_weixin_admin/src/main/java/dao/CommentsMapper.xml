@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.CommentsMapper">
+    <resultMap id="BaseResultMap" type="model.Comments">
+        <result column="moments_time" jdbcType="VARCHAR" property="momentsTime"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="content_detail" jdbcType="VARCHAR" property="contentDetail"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <select id="queryOne" parameterType="string" resultMap="BaseResultMap">
+        select * from comments
+    </select>
+    <insert id="insertOne" parameterType="model.Comments">
+        insert into comments(moments_time, name, content_detail, create_time)
+        values(#{momentsTime}, #{name}, #{contentDetail}, #{createTime})
+    </insert>
+    <delete id="deleteById" parameterType="java.lang.String">
+        DELETE FROM comments WHERE create_time = #{id}
+    </delete>
+</mapper>

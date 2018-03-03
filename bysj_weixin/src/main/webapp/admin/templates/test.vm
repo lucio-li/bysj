@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>Spring MVC and Velocity</title>
+<style>
+    div{
+        color: blue;
+    }
+
+</style>
+</head>
+
+
+<body>
+<h1>Spring MVC and Velocity</h1>
+
+    #foreach($i in $list)
+        <div>$i.name</div>
+    #end
+
+<hr />
+Copyright &copy 2014 lm
+</body>
+</html>

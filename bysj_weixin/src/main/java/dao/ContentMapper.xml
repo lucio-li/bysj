@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ContentMapper">
+    <!-- 微信公众号需要的resultMap -->
+    <resultMap id="BaseResultMap" type="model.knowledge.Content">
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="catalog_id" jdbcType="VARCHAR" property="catalog_id"/>
+    </resultMap>
+
+
+    <select id="queryByLibrary" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT content.* from knowledge_content content
+        WHERE content.catalog_id IN
+        (SELECT id FROM knowledge_catalog WHERE library = #{library})
+    </select>
+    <select id="queryByCatalogFirst" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT content.* from knowledge_content content
+        WHERE content.catalog_id IN
+        (SELECT id FROM knowledge_catalog WHERE library = #{library} and parent_code = #{code} or code=#{code})
+    </select>
+
+</mapper>

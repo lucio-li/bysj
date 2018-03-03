@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ImageMapper">
+    <!-- 微信公众号需要的resultMap -->
+    <resultMap id="BaseResultMap" type="model.message.Image">
+        <result column="media_id" jdbcType="VARCHAR" property="media_id"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="key" jdbcType="VARCHAR" property="key"/>
+    </resultMap>
+    <insert id="addOne" parameterType="model.message.Image">
+        insert into image_message(`media_id`, `url`, `name`, `type`, `create_time`, `key`)
+        values(#{media_id}, #{url}, #{name}, #{type}, NOW(), #{key})
+    </insert>
+    <select id="queryAll" parameterType="string" resultMap="BaseResultMap">
+        select * from image_message
+    </select>
+    <select id="queryByKey" parameterType="string" resultMap="BaseResultMap">
+        select * from image_message WHERE `key` = #{key}
+    </select>
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM image_message WHERE id = #{id}
+    </delete>
+</mapper>

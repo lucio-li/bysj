@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.CatalogMapper">
+    <!-- 微信公众号需要的resultMap -->
+    <resultMap id="BaseResultMap" type="model.knowledge.Catalog">
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="library" jdbcType="VARCHAR" property="library"/>
+        <result column="parent_code" jdbcType="VARCHAR" property="parent_code"/>
+        <result column="level" jdbcType="VARCHAR" property="level"/>
+    </resultMap>
+
+    <select id="queryAll" parameterType="model.knowledge.Catalog" resultMap="BaseResultMap">
+      SELECT * from knowledge_catalog
+      <where>
+          <if test="library != null and  library!= ''">
+              and `library` = #{library}
+          </if>
+          <if test="level != null and  level!= ''">
+              and `level` = #{level}
+          </if>
+          <if test="parent_code != null and  parent_code!= ''">
+              and `parent_code` = #{parent_code}
+          </if>
+      </where>
+    </select>
+    <select id="queryLibrary" parameterType="model.knowledge.Catalog" resultType="java.lang.String">
+        SELECT DISTINCT(library) from knowledge_catalog
+    </select>
+    <select id="queryCatalogByLibrary" parameterType="model.knowledge.Catalog" resultMap="BaseResultMap">
+        SELECT * from knowledge_catalog
+        WHERE `library` = #{library} and LEVEL = "1"
+    </select>
+    <select id="queryCatalogSecond" parameterType="model.knowledge.Catalog" resultMap="BaseResultMap">
+        SELECT * from knowledge_catalog
+        <where>
+            <if test="library != null and  library!= ''">
+                and `library` = #{library}
+            </if>
+            <if test="parent_code != null and  parent_code!= ''">
+                and `parent_code` = #{parent_code}
+            </if>
+            <if test="level != null and  level!= ''">
+                and `level` = #{level}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/bysj.iml" filepath="$PROJECT_DIR$/bysj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bysj_weixin/bysj_weixin.iml" filepath="$PROJECT_DIR$/bysj_weixin/bysj_weixin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bysj_weixin_admin/bysj_weixin_admin.iml" filepath="$PROJECT_DIR$/bysj_weixin_admin/bysj_weixin_admin.iml" />
+    </modules>
+  </component>
+</project>

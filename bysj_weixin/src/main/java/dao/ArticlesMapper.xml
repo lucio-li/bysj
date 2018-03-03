@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ArticlesMapper">
+    <!-- 微信公众号需要的resultMap -->
+    <resultMap id="BaseResultMap" type="model.message.Article">
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="thumb_media_id" jdbcType="VARCHAR" property="thumb_media_id"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="show_cover_pic" jdbcType="VARCHAR" property="show_cover_pic"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="content_source_url" jdbcType="VARCHAR" property="content_source_url"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="key" jdbcType="VARCHAR" property="key" />
+    </resultMap>
+    <insert id="addOne" parameterType="model.message.Article">
+        insert into articles(`title`, `thumb_media_id`, `author`, `show_cover_pic`, `content`, `content_source_url`, `media_id`, `key`)
+        values(#{title}, #{thumb_media_id}, #{author}, #{show_cover_pic}, #{content}, #{content_source_url}, #{media_id}, #{key})
+    </insert>
+    <select id="queryAll" parameterType="string" resultMap="BaseResultMap">
+        select art.title, art.thumb_media_id, art.author, art.show_cover_pic, art.content, art.content_source_url, art.key, image.url
+        from articles art left join image_message image
+        on art.thumb_media_id = image.media_id
+    </select>
+    <select id="queryByKey" parameterType="string" resultMap="BaseResultMap">
+        select * from articles where `key` = #{key}
+    </select>
+</mapper>

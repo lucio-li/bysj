@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.MessageMapper">
+    <resultMap id="BaseResultMap" type="model.message.TextMessage">
+        <result column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="Content" jdbcType="VARCHAR" property="Content"/>
+        <result column="MsgType" jdbcType="VARCHAR" property="MsgType"/>
+        <result column="EventKey" jdbcType="VARCHAR" property="EventKey"/>
+    </resultMap>
+    <select id="queryOneByKey" parameterType="string" resultMap="BaseResultMap">
+        select * from message WHERE EventKey = #{eventKey}
+    </select>
+    <select id="queryAll" parameterType="string" resultMap="BaseResultMap">
+        select * from message
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        DELETE FROM message WHERE id = #{id}
+    </delete>
+</mapper>

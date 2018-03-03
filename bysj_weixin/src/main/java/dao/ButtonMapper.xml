@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ButtonMapper">
+    <!-- 微信公众号需要的resultMap -->
+    <resultMap id="BaseResultMap" type="model.menu.Button">
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="key" jdbcType="VARCHAR" property="key"/>
+
+        <collection property="sub_button" ofType="model.menu.Button">
+            <result column="sub_type" jdbcType="VARCHAR" property="type"/>
+            <result column="sub_name" jdbcType="VARCHAR" property="name"/>
+            <result column="sub_url" jdbcType="VARCHAR" property="url"/>
+            <result column="sub_key" jdbcType="VARCHAR" property="key"/>
+        </collection>
+    </resultMap>
+
+    <!-- 后台网站需要的result map-->
+    <resultMap id="adminButtonMap" type="model.menu.Button">
+        <result column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="parent_id" jdbcType="VARCHAR" property="parent_id"/>
+        <result column="level" jdbcType="VARCHAR" property="level"/>
+        <result column="key" jdbcType="VARCHAR" property="key"/>
+        <result column="parent_name" jdbcType="VARCHAR" property="parent_name"/>
+    </resultMap>
+    <select id="queryOne" parameterType="string" resultMap="BaseResultMap">
+        select * from button WHERE id= #{id}
+    </select>
+    <select id="queryAllForMenu" parameterType="string" resultMap="BaseResultMap">
+        select btn.*, sub_btn.type sub_type, sub_btn.name sub_name, sub_btn.url sub_url, sub_btn.key sub_key from
+        button btn LEFT JOIN button sub_btn
+        ON btn.id = sub_btn.parent_id
+        where btn.level = 1
+    </select>
+    <select id="queryAll" parameterType="string" resultMap="BaseResultMap">
+        SELECT * from button
+    </select>
+    <select id="queryByLevel" parameterType="string" resultMap="adminButtonMap">
+        select btn1.*, btn2.name as parent_name from button btn1 left join button btn2
+        on btn1.parent_id = btn2.id
+        WHERE btn1.level = #{level}
+    </select>
+    <select id="queryByKey" parameterType="string" resultMap="adminButtonMap">
+        select * from button where `key` = #{key}
+    </select>
+    <select id="queryByParentId" parameterType="string" resultMap="adminButtonMap">
+        select * from button WHERE parent_id = #{parentId} and level = "2"
+    </select>
+    <insert id="insertOne" parameterType="model.menu.Button">
+        insert into button(`type`, `name`, `url`, `media_id`, `parent_id`, `create_time`, `level`, `key`, `msg_type`)
+        values(#{type}, #{name}, #{url}, #{media_id}, #{parent_id}, NOW(), #{level},  #{key}, #{msg_type})
+    </insert>
+    <delete id="deleteById" parameterType="java.lang.String">
+        DELETE FROM button WHERE id = #{id} or parent_id = #{id}
+    </delete>
+    <update id="update" parameterType="model.menu.Button">
+        UPDATE button
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="type != null and type != '' ">
+                type = #{type},
+            </if>
+            <if test="sex != null and sex != '' ">
+                name = #{name},
+            </if>
+            <if test="url != null and url != '' ">
+                url = #{url},
+            </if>
+            <if test="media_id != null and media_id != '' ">
+                media_id = #{media_id},
+            </if>
+            <if test="parent_id != null and parent_id != '' ">
+                parent_id = #{parent_id},
+            </if>
+            <if test="key != null and key != '' ">
+                key = #{key},
+            </if>
+
+        </trim>
+    </update>
+</mapper>

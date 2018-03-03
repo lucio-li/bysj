@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+    <title></title>
+<link rel="stylesheet" href="../admin/css/pintuer.css">
+<link rel="stylesheet" href="../admin/css/admin.css">
+<script src="../admin/js/jquery.js"></script>
+<script src="../admin/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
+  <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+          <li>
+              #if($level.equals("1"))
+                  <button type="button" class="button border-yellow addMenuBtn"><span class="icon-plus-square-o"></span> 添加一级菜单</button>
+              #elseif($level.equals("2"))
+                  <button type="button" class="button border-yellow addMenuBtn" id="addMenuBtnSecond"><span class="icon-plus-square-o"></span> 添加二级菜单</button>
+              #end
+          </li>
+          #if($level.equals("2"))
+              <li>
+                  <select name="cid" class="input" style="width:200px; line-height:17px;" onchange="changesearch()">
+                      <option value="0">请选择父菜单</option>
+                      #foreach($button in $buttonFirstList)
+                          <option value="$button.id">$button.name</option>
+                      #end
+                  </select>
+              </li>
+          #end
+      </ul>
+  </div>
+    #if($level.equals("1"))
+      <table class="table table-hover text-center">
+        <tr>
+          <th width="5%">菜单名</th>
+          <th width="15%">菜单类型</th>
+          <th width="10%">菜单级别</th>
+          <th width="10%">操作</th>
+        </tr>
+        #foreach($button in $buttonList)
+        <tr>
+            <td style="display: none">$button.getId()</td>
+            <td class="button_name">$button.getName()</td>
+            #if($button.getType().equals("view"))
+                <td>跳转网页</td>
+            #elseif($button.getType().equals("click"))
+                <td>发送消息</td>
+            #else
+                <td>一级菜单</td>
+            #end
+            #if($button.getLevel().equals("1"))
+              <td>一级菜单</td>
+            #elseif($button.getLevel().equals("2"))
+              <td>二级菜单</td>
+
+            #end
+            <td><div class="button-group"> <a class="button border-main" href="./update"><span class="icon-edit"></span> 修改</a> <a class="button border-red deleteBtn" href="javascript:void(0)" menu_id="$button.getId()" index="$velocityCount"><span class="icon-trash-o"></span> 删除</a> </div></td>
+        </tr>
+        #end
+
+      </table>
+    #elseif($level.equals("2"))
+        <table class="table table-hover text-center">
+        <tr>
+            <th width="5%">菜单名</th>
+            <th width="15%">菜单类型</th>
+            <th width="10%">父菜单名</th>
+            <th width="10%">操作</th>
+        </tr>
+        #foreach($button in $buttonList)
+            <tr>
+                <td style="display: none">$button.getId()</td>
+                <td class="button_name">$button.getName()</td>
+                #if($button.getType().equals("view"))
+                    <td>跳转网页</td>
+                #elseif($button.getType().equals("click"))
+                    <td>发送消息</td>
+                #else
+                    <td>一级菜单</td>
+                #end
+                <td>$button.parent_name</td>
+
+                <td><div class="button-group"> <a class="button border-main" href="./update"><span class="icon-edit"></span> 修改</a> <a class="button border-red deleteBtn" href="javascript:void(0)" menu_id="$button.getId()" index="$velocityCount"><span class="icon-trash-o"></span> 删除</a> </div></td>
+            </tr>
+        #end
+
+    </table>
+    #end
+</div>
+<script type="text/javascript">
+function del(id,mid){
+
+	if(confirm("您确定要删除吗?")){
+
+	}
+}
+</script>
+<div class="panel admin-panel margin-top" id="addMenu" hidden>
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>添加菜单</strong></div>
+  <div class="body-content">
+    <div class="form-x">
+      <div class="form-group">
+          <div class="label">
+              <label>菜单名称：</label>
+          </div>
+          <div class="field">
+              <input type="text" class="input w50" id="menuName"/>
+              <div class="tips"></div>
+          </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>菜单类型：</label>
+        </div>
+        <div class="field" id="menuTypeAdd">
+          <select name="pid" class="input w50">
+            <option value="0">请选择类型</option>
+            <option value="click">发送消息</option>
+            <option value="view">跳转网页</option>
+          </select>
+          <div class="tips">不选择上级分类默认为发送消息</div>
+        </div>
+      </div>
+      <div class="form-group" id="menu_url" hidden>
+        <div class="label">
+          <label>页面地址：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="title" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group" id="menu_message" hidden>
+          <div class="label">
+              <label>消息类型：</label>
+          </div>
+          <div class="field">
+              <select name="pid" class="input w50">
+                  <option value="0">请选择消息类型</option>
+                  <option value="image">图片消息</option>
+                  <option value="article">图文消息</option>
+              </select>
+              <div class="tips"></div>
+          </div>
+      </div>
+      <div class="form-group" hidden id="selectImageFirstPart">
+            <div class="label">
+                <label>选择图片：</label>
+            </div>
+            <div class="field" id="selectImageFirst">
+                <select name="pid" class="input w50">
+                    <option value="0">请选择图片</option>
+                    #foreach($image in $imageList)
+                        <option value="$image.key" data-url="$image.url">$image.name</option>
+                    #end
+
+                </select>
+            ##              <div class="tips">不选择上级分类默认为发送消息</div>
+            </div>
+            <div style=" float:left; margin-left: 150px;"><img id="coverPicImageFirst" src="" alt="" width="200px"  class="addImg" hidden /></div>
+        </div>
+        <div class="form-group" hidden id="selectArticleFirstPart">
+            <div class="label">
+                <label>选择图文：</label>
+            </div>
+            <div class="field" id="selectArticleFirst">
+                <select name="pid" class="input w50">
+                    <option value="0">请选择图文</option>
+                    #foreach($article in $articlesList)
+                        <option value="$article.key" data-url="$article.url">$article.title</option>
+                    #end
+
+                </select>
+            ##              <div class="tips">不选择上级分类默认为发送消息</div>
+            </div>
+            <div style=" float:left; margin-left: 150px;"><img id="coverPicArticleFirst" src="" alt="" width="200px"  class="addImg" hidden /></div>
+        </div>
+##      <div class="form-group">
+##        <div class="label">
+##          <label>批量添加：</label>
+##        </div>
+##        <div class="field">
+##          <textarea type="text" class="input w50" name="tits" style="height:150px;" placeholder="多个分类标题请转行"></textarea>
+##          <div class="tips">多个分类标题请转行</div>
+##        </div>
+##      </div>
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="button
+" id="submit"> 提交</button>
+        </div>
+      </div>
+##        <div class="form-group dialogs" data-toggle="click" data-target="#menu_url" data-mask="1">
+##            <div class="label">
+##                <label></label>
+##            </div>
+##            <div class="field">
+##                <button class="button bg-main icon-check-square-o" type="button
+##        "> 提交</button>
+##            </div>
+##        </div>
+    </div>
+  </div>
+</div>
+<div class="panel admin-panel margin-top" id="addMenuSecond" hidden>
+    <div class="panel-head" id="addSecond"><strong><span class="icon-pencil-square-o"></span>添加二级菜单</strong></div>
+    <div class="body-content">
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>菜单名称：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="menuNameSecond"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>父菜单：</label>
+                </div>
+                <div class="field" id="parentNameSecond">
+                    <select name="pid" class="input w50">
+                        <option value="0">请选择父菜单名</option>
+                        #foreach($button in $buttonFirstList)
+                            <option value="$button.id">$button.name</option>
+                        #end
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>菜单类型：</label>
+                </div>
+                <div class="field" id="menuTypeAddSecond">
+                    <select name="pid" class="input w50">
+                        <option value="0">请选择类型</option>
+                        <option value="click">发送消息</option>
+                        <option value="view">跳转网页</option>
+                    </select>
+                    <div class="tips">不选择上级分类默认为发送消息</div>
+                </div>
+            </div>
+            <div class="form-group" id="menu_urlSecond" hidden>
+                <div class="label">
+                    <label>页面地址：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="title" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group" id="menu_messageSecond" hidden>
+                <div class="label">
+                    <label>消息类型：</label>
+                </div>
+                <div class="field">
+                    <select name="pid" class="input w50">
+                        <option value="0">请选择消息类型</option>
+                        <option value="image">图片消息</option>
+                        <option value="article">图文消息</option>
+                    </select>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group" id="selectImageSecondPart" hidden>
+                <div class="label">
+                    <label>选择图片：</label>
+                </div>
+                <div class="field" id="selectImageSecond">
+                    <select name="pid" class="input w50">
+                        <option value="0">请选择图片</option>
+                        #foreach($image in $imageList)
+                            <option value="$image.key" data-url="$image.url">$image.name</option>
+                        #end
+
+                    </select>
+                ##              <div class="tips">不选择上级分类默认为发送消息</div>
+                </div>
+                <div style=" float:left; margin-left: 150px;"><img id="coverPic" src="" alt="" width="200px"  class="addImg" hidden /></div>
+            </div>
+            <div class="form-group" id="selectArticleSecondPart" hidden>
+                <div class="label">
+                    <label>选择图文：</label>
+                </div>
+                <div class="field" id="selectArticleSecond">
+                    <select name="pid" class="input w50">
+                        <option value="0">请选择图文</option>
+                        #foreach($article in $articlesList)
+                            <option value="$article.key" data-url="$article.url">$article.title</option>
+                        #end
+
+                    </select>
+                ##              <div class="tips">不选择上级分类默认为发送消息</div>
+                </div>
+                <div style=" float:left; margin-left: 150px;"><img id="coverPicArticleSecond" src="" alt="" width="200px"  class="addImg" hidden /></div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" type="button
+" id="submitSecond"> 提交</button>
+                </div>
+            </div>
+        ##        <div class="form-group dialogs" data-toggle="click" data-target="#menu_url" data-mask="1">
+        ##            <div class="label">
+        ##                <label></label>
+        ##            </div>
+        ##            <div class="field">
+        ##                <button class="button bg-main icon-check-square-o" type="button
+        ##        "> 提交</button>
+        ##            </div>
+        ##        </div>
+        </div>
+    </div>
+</div>
+
+<script src="../admin/js/menu_list.js"></script>
+</body>
+</html>
