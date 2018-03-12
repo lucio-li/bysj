@@ -45,6 +45,24 @@
     <li><a href="./imagesMessage" target="right">图片素材</a></li>
     <li><a href="./addArticles" target="right">图文素材</a></li>
   </ul>
+  <h2><span class="icon-pencil-square-o"></span>知识库管理</h2>
+  <ul>
+##    <li><a href="./knowledge/list" target="right">目录管理</a></li>
+    <li><a href="./knowledge/list" target="right">知识列表</a></li>
+    <li><a href="../content/apply/list" target="right">申请列表</a></li>
+    <li><a href="./knowledge/list" target="right">历史申请</a></li>
+  </ul>
+    <h2><span class="icon-pencil-square-o"></span>人事管理</h2>
+    <ul>
+    ##    <li><a href="./knowledge/list" target="right">目录管理</a></li>
+        <li><a href="../human/notice/index" target="right">通知公告(微信端)</a></li>
+        <li><a href="../human/notice/list" target="right">通知公告管理</a></li>
+        <li><a href="../human/notice/list" target="right">在线交流</a></li>
+        <li><a href="../human/notice/index" target="right">已签到人员</a></li>
+        <li><a href="../content/apply/list" target="right">未签到人员</a></li>
+        <li><a href="./knowledge/list" target="right">任务指派</a></li>
+        <li><a href="./knowledge/list" target="right">任务上传</a></li>
+    </ul>
 </div>
 <script type="text/javascript">
 $(function(){

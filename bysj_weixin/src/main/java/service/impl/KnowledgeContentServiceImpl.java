@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import service.IKnowledgeContentService;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +26,25 @@ public class KnowledgeContentServiceImpl implements IKnowledgeContentService {
     public List<Content> queryByLibrary(String library) {
         return contentMapper.queryByLibrary(library);
     }
+    /**
+     * @param id
+     * @return
+     */
+    public Content queryById(int id) {
+        return contentMapper.queryById(id);
+    }
+
+    public int insertOne(Content content) {
+        Date createTime = new Date();
+        content.setCreateTime(createTime);
+        contentMapper.insertOne(content);
+
+        return contentMapper.queryByTime(createTime).getId();
+    }
+
+    public void deleteById(int id) {
+        contentMapper.deleteById(id);
+    }
 
     /**
      *
@@ -37,5 +57,17 @@ public class KnowledgeContentServiceImpl implements IKnowledgeContentService {
         catalog.setLibrary(library);
         catalog.setCode(code);
         return contentMapper.queryByCatalogFirst(catalog);
+    }
+    /**
+     *
+     * @param library 库名
+     * @param code 二级目录的code
+     * @return
+     */
+    public List<Content> queryByCatalogSecond(String library, String code) {
+        Catalog catalog = new Catalog();
+        catalog.setLibrary(library);
+        catalog.setCode(code);
+        return contentMapper.queryByCatalogSecond(catalog);
     }
 }

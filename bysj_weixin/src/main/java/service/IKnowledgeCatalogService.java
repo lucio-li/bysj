@@ -29,4 +29,6 @@ public interface IKnowledgeCatalogService {
      * 查询二级目录
      */
     public List<Catalog> queryCatalogSecond(Catalog catalog);
+    //根据id获取目录path
+    public String getPathById(int id);
 }

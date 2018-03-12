@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ApplyUserMapper">
+    <resultMap id="BaseResultMap" type="model.knowledge.ApplyUser">
+        <result column="id" javaType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+    </resultMap>
+    <insert id="insertOne" parameterType="model.knowledge.ApplyUser">
+        insert into apply_user(`username`, `phone`, `email`, `createTime`)
+        values(#{username}, #{phone}, #{email}, NOW())
+    </insert>
+    <select id="queryIdByTime" parameterType="java.util.Date" resultType="java.lang.Integer">
+        select id from apply_user WHERE createTime = #{date}
+    </select>
+    <select id="queryById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from apply_user WHERE id = #{id}
+    </select>
+</mapper>

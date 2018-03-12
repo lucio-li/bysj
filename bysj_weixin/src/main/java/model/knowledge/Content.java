@@ -1,15 +1,53 @@
 package model.knowledge;
 
+import java.util.Date;
+
 /**
  * Created by liqiao on 2018/3/3.
  * 知识库内容的页面
  */
 public class Content {
+    private int id;
     private String title;
     private String description;
     private String content;
     private String attachment_url;//附件url
     private String catalog_id;
+    private String path;
+    private Date createTime;
+    private int user_id;
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

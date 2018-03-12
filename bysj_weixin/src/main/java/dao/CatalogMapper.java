@@ -13,4 +13,6 @@ public interface CatalogMapper {
     List<String> queryLibrary();
     List<Catalog> queryCatalogByLibrary(String library);
     List<Catalog> queryCatalogSecond(Catalog catalog);
+    Catalog queryById(int id);
+    Catalog queryByCode(Catalog catalog);
 }

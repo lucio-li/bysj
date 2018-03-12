@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)https://weui.io/#input -->
+<html lang="zh-cmn-Hans">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<title>公告管理</title>
+    <link rel="stylesheet" href="../../admin/css/pintuer.css">
+    <link rel="stylesheet" href="../../admin/css/admin.css">
+<style>
+    #applyBtn {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+</style>
+</head>
+<body>
+<div class="panel admin-panel margin-top">
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>公告内容</strong></div>
+    <div class="body-content">
+        <form id="addForm" method="post" enctype="multipart/form-data" class="form-x" >
+            <div class="form-group">
+                <div class="label">
+                    <label>标题：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="titleText" value="$notice.title"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>作者：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="authorText" value="$notice.author"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>内容：</label>
+                </div>
+                <div class="field">
+                    <textarea name="content" class="input" style="height:450px; border:1px solid #ddd;" id="contentText">$notice.content</textarea>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button id="submitBtn" class="button bg-main icon-check-square-o" type="button"> 发布</button
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="../../admin/js/jquery.js"></script>
+<script src="../../admin/js/notice_list.js"></script>
+</body>
+</html>

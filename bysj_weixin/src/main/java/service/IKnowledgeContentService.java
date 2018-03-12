@@ -12,6 +12,9 @@ public interface IKnowledgeContentService {
 
     List<Content> queryByLibrary(String library);
     List<Content> queryByCatalogFirst(String library, String parent_code);
-
+    List<Content> queryByCatalogSecond(String library, String parent_code);
+    Content queryById(int id);
+    int insertOne(Content content);
+    void deleteById(int id);
 
 }

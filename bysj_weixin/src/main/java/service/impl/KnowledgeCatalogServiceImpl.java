@@ -2,7 +2,6 @@ package service.impl;
 
 import dao.CatalogMapper;
 import model.knowledge.Catalog;
-import org.junit.Test;
 import org.springframework.stereotype.Service;
 import service.IKnowledgeCatalogService;
 
@@ -19,7 +18,6 @@ public class KnowledgeCatalogServiceImpl implements IKnowledgeCatalogService {
     private CatalogMapper catalogMapper;
 
     public List<Catalog> queryAll(Catalog catalog) {
-        System.out.println("开始test");
         List<String> catalogList = catalogMapper.queryLibrary();
         for (String catalogT : catalogList) {
             System.out.println(catalogT);
@@ -35,9 +33,14 @@ public class KnowledgeCatalogServiceImpl implements IKnowledgeCatalogService {
     public List<Catalog> queryCatalogSecond(Catalog catalog) {
         return catalogMapper.queryCatalogSecond(catalog);
     }
-    @Test
-    public void test() {
-        queryAll(null);
+
+    //根据id获取目录path
+    public String getPathById(int id) {
+        Catalog catalog = catalogMapper.queryById(id);
+        String path = catalog.getLibrary();
+        Catalog catalogTmp = catalogMapper.queryByCode(catalog);
+        path += "->" + catalogTmp.getName() + "->" + catalog.getName();
+        return path;
     }
 
 }

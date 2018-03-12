@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ContentAttachmentMapper">
+    <!-- 微信公众号需要的resultMap -->
+    <resultMap id="BaseResultMap" type="model.knowledge.ContentAttachment">
+        <result column="id" javaType="INTEGER" property="id"/>
+        <result column="content_id" jdbcType="INTEGER" property="content_id"/>
+        <result column="filename" jdbcType="VARCHAR" property="filename"/>
+        <result column="local_path" jdbcType="VARCHAR" property="local_path"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+    </resultMap>
+
+
+
+    <select id="queryByContentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT * from content_attachment
+        WHERE content_id = #{id}
+    </select>
+    <select id="queryById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT * from content_attachment
+        WHERE id = #{id}
+    </select>
+    <insert id="insertOne" parameterType="model.knowledge.ContentAttachment">
+        insert into content_attachment(`content_id`, `filename`, `local_path`, `create_time`)
+        values(#{content_id}, #{filename}, #{local_path},  NOW())
+    </insert>
+
+</mapper>

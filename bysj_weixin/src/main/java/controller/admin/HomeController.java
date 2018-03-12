@@ -87,6 +87,12 @@ public class HomeController {
         model.addAttribute("list", "hello");
         return "book";
     }
+    @RequestMapping(value = "/tips")
+    public String tips(String url, Model model) {
+        System.out.println("url" + url);
+        model.addAttribute("url", url);
+        return "tips";
+    }
     @RequestMapping(value = "/column")
     public String column(Model model) {
 
@@ -137,5 +143,14 @@ public class HomeController {
         return "addArticles";
     }
 
-
+    //微信端的成功提示页
+    @RequestMapping(value = "/msgSuccess")
+    public String msgSuccess(Model model) {
+        return "msg_success";
+    }
+    //微信端的成失败提示页
+    @RequestMapping(value = "/msgWarn")
+    public String msgWarn(Model model) {
+        return "msg_warn";
+    }
 }

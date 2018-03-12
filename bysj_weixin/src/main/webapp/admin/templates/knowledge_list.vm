@@ -31,7 +31,7 @@
     <div class="weui-cells">
         <!-- 选择库 -->
         <div class="weui-cell weui-cell_select weui-cell_select-after">
-            <div class="weui-cell__hd"><label class="weui-label">所属库</label></div>
+            <div class="weui-cell__hd"><label class="weui-label">选择所属库</label></div>
             <div class="weui-cell__bd">
                 <select id="libraryType" class="weui-select">
                     #foreach($library in $libraryList)
@@ -63,9 +63,9 @@
             </div>
         </div>
 
-        <div class="weui-media-box weui-media-box_small-appmsg weui-cells">
+        <div class="weui-media-box weui-media-box_small-appmsg weui-cells" id="contentListPart">
             #foreach($content in $contentList)
-                <a class="weui-cell weui-cell_access" href="javascript:viewContent(72)">
+                <a class="weui-cell weui-cell_access" href="../content/detail?id=$content.id">
                     <div class="weui-cell__bd weui-cell_primary">
                         <h4 class="weui-media-box__title">$content.title</h4>
     ##                    <p  class="weui-media-box__desc">        荔枝蒂蛀虫（Comopomorpha sinensis）是荔枝、龙眼的主要蛀果害虫，遍布我国各荔枝主产区，在印度、泰国、南非等国也有分布。该虫蛀食荔枝、龙眼果实，幼果期果核被蛀食，引起大量落果；在成果期，幼虫在果蒂与果核之间取食，留下黑褐色粉末状的虫粪，…</p>
@@ -73,6 +73,10 @@
                     <span class="weui-cell__ft"></span>
                 </a>
             #end
+        </div>
+
+        <div class="weui-media-box weui-media-box_small-appmsg weui-cells" id="searchListPart" hidden>
+
         </div>
 
     </div>

@@ -3,6 +3,7 @@
 <mapper namespace="dao.CatalogMapper">
     <!-- 微信公众号需要的resultMap -->
     <resultMap id="BaseResultMap" type="model.knowledge.Catalog">
+        <result column="id" javaType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="code" jdbcType="VARCHAR" property="code"/>
         <result column="library" jdbcType="VARCHAR" property="library"/>
@@ -44,5 +45,11 @@
                 and `level` = #{level}
             </if>
         </where>
+    </select>
+    <select id="queryById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT * from knowledge_catalog WHERE id = #{id}
+    </select>
+    <select id="queryByCode" parameterType="model.knowledge.Catalog" resultMap="BaseResultMap">
+        SELECT * from knowledge_catalog WHERE library = #{library} and code = #{parent_code}
     </select>
 </mapper>

@@ -5,11 +5,20 @@ package model.knowledge;
  * 知识库的目录的类
  */
 public class Catalog {
+    private int id;
     private String name;
     private String code;
     private String library;
     private String parent_code;
     private String level;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

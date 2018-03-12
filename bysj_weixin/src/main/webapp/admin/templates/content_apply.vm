@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)https://weui.io/#input -->
+<html lang="zh-cmn-Hans">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<title>WeUI</title>
+<link rel="stylesheet" href="../../admin/css/weui.css"/>
+<style>
+    #applyBtn {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+</style>
+</head>
+<body>
+<div class="weui-cells weui-cells_form">
+
+    <div class="weui-cells">
+        <!-- 选择库 -->
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+            <div class="weui-cell__hd"><label class="weui-label">所属库</label></div>
+            <div class="weui-cell__bd">
+                <select id="libraryType" class="weui-select">
+                    #foreach($library in $libraryList)
+                        <option value="$library">$library</option>
+                    #end
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="weui-cells">
+        <!-- 选择一级目录 -->
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+            <div class="weui-cell__hd"><label class="weui-label">1级目录</label></div>
+            <div class="weui-cell__bd">
+                <select id="catalogFirst" class="weui-select">
+                    <option value="all">请选择一级目录</option>
+                    #foreach($catalog in $catalogFirst)
+                        <option value="$catalog.code">$catalog.getName()</option>
+                    #end
+                </select>
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_select weui-cell_select-after" id="catalogSecondPart"  hidden >
+            <div class="weui-cell__hd"><label class="weui-label">2级目录</label></div>
+            <div class="weui-cell__bd">
+                <select id="catalogSecond" class="weui-select">
+
+                </select>
+            </div>
+        </div>
+
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">标题</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text"  placeholder="请输入标题" id="titleText">
+        </div>
+    </div>
+    <div class="weui-cells__title">描述</div>
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <div class="weui-cell__bd">
+                    <textarea class="weui-textarea" placeholder="请输入内容描述" rows="3" id="descriptionText"></textarea>
+##                    <div class="weui-textarea-counter"><span>0</span>/200</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="weui-cells__title">文本域</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="请输入具体内容" rows="6" id="contentText"></textarea>
+##                <div class="weui-textarea-counter"><span>0</span>/600</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="weui-cells__title">下方申请人信息，选填</div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text"  placeholder="请输入姓名" id="username">
+        </div>
+    </div>
+    <div class="weui-cell weui-cell_vcode">
+        <div class="weui-cell__hd">
+            <label class="weui-label">手机号</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="tel" placeholder="请输入手机号" id="phone">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">邮箱</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text"  placeholder="请输入邮箱地址" id="email">
+        </div>
+    </div>
+    <button class="weui-btn weui-btn_primary" id="applyBtn">申请入库</button>
+
+
+    <div id="dialogs">
+        <!--BEGIN dialog1-->
+        <div class="js_dialog" id="androidDialog1" style="display: none;">
+            <div class="weui-mask"></div>
+            <div class="weui-dialog weui-skin_android">
+                <div class="weui-dialog__bd" id="dialogText">
+                    请先选择一级目录
+                </div>
+                <div class="weui-dialog__ft">
+                    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+                    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" data-id="">确定</a>
+                </div>
+            </div>
+        </div>
+        <!--END dialog1-->
+    </div>
+</div>
+<script type="text/javascript" src="../../admin/js/jquery.js"></script>
+<script src="../../admin/js/content_apply.js"></script>
+</body>
+</html>

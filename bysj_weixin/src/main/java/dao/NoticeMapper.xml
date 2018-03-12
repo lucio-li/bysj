@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.NoticeMapper">
+    <resultMap id="BaseResultMap" type="model.human.Notice">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+    </resultMap>
+    <select id="queryOne"  resultMap="BaseResultMap">
+        select * from notice limit 0, 1
+    </select>
+    <insert id="insertOne"  parameterType="model.human.Notice">
+        insert into notice(`title`, `author`, `content`, `createTime`)
+        values(#{title}, #{author}, #{content}, NOW())
+    </insert>
+    <update id="update"  parameterType="model.human.Notice">
+        UPDATE notice
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null and title != '' ">
+                title = #{title},createTime=NOW(),
+            </if>
+            <if test="author != null and author != '' ">
+                author = #{author},
+            </if>
+            <if test="content != null and content != '' ">
+                content = #{content},
+            </if>
+        </trim>
+        WHERE id = #{id}
+    </update>
+
+</mapper>
