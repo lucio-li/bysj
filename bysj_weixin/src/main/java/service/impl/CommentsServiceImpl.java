@@ -1,7 +1,7 @@
 package service.impl;
 
 import dao.CommentsMapper;
-import model.Comments;
+import model.human.Comments;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import service.CommentsService;

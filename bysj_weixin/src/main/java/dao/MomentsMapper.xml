@@ -7,6 +7,7 @@
         <result column="location" jdbcType="VARCHAR" property="location" />
         <result column="directory" jdbcType="VARCHAR" property="directory" />
         <result column="avatarUrl" jdbcType="VARCHAR" property="avatarUrl" />
+        <result column="nickname" jdbcType="VARCHAR" property="nickname" />
         <collection property="commentsList" ofType="model.human.Comments">
 
             <result column="name" jdbcType="VARCHAR" property="name"/>
@@ -22,7 +23,7 @@
           <!--  select content, time, location, directory, avatarUrl from moments JOIN couple
          on moments.openid = couple.cpA or moments.openid =  couple.cpB
          where couple.cpA=#{openid} or couple.cpB = #{openid}-->
-        select moments.content, moments.time, moments.location, moments.directory, moments.avatarUrl,
+        select moments.content, moments.time, moments.location, moments.directory, moments.avatarUrl, moments.nickname,
         comments.name, comments.content_detail, comments.create_time
         from
         moments left join comments
@@ -37,9 +38,9 @@
     <select id="queryOne" parameterType="string" resultMap="BaseResultMap">
         select * from moments where openid=#{openid}
     </select>
-    <insert id="insertOne" parameterType="model.Moments">
-        insert into moments(content, time, location, directory, avatarUrl)
-        values(#{content}, #{time}, #{location}, #{directory},  #{avatarUrl})
+    <insert id="insertOne" parameterType="model.human.Moments">
+        insert into moments(content, time, location, directory, avatarUrl, nickname)
+        values(#{content}, #{time}, #{location}, #{directory},  #{avatarUrl}, #{nickname})
     </insert>
     <delete id="deleteOne" parameterType="java.lang.String">
         DELETE FROM moments WHERE time = #{time}

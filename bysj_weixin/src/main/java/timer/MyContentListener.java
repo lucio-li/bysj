@@ -2,6 +2,7 @@ package timer;
 
 import org.springframework.web.context.ContextLoaderListener;
 import thread.StartTaskThread;
+import utils.AppConfig;
 
 import javax.servlet.ServletContextEvent;
 
@@ -15,15 +16,16 @@ public class MyContentListener extends ContextLoaderListener {
         //------------------生成流程线程-----------------
         StartTaskThread startTaskThread = new StartTaskThread();
         startTaskThread.start();//启动线程定时获取access_token
+        System.out.println("启动线程");
 //
         //自定义菜单
-//        while ("".equals(AppConfig.access_token)) {
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        while ("".equals(AppConfig.access_token)) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 }

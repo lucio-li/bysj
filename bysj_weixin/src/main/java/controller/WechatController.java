@@ -46,6 +46,12 @@ public class WechatController {
         list.add(timestamp);
         Collections.sort(list);
         String signatureBySha = DigestUtils.shaHex(list.get(0)+list.get(1)+list.get(2));
+        AppConfig.timestamp = timestamp;
+        AppConfig.nonceStr = nonce;
+        AppConfig.signature = signatureBySha;
+
+        System.out.println("获取accetoken");
+
         if (signature.equals(signatureBySha)) {
             ResponseUtils.renderText(res, echostr);
         } else {

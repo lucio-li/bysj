@@ -1,6 +1,7 @@
 package service;
 
-import model.Comments;
+
+import model.human.Comments;
 
 /**
  * 朋友圈动态的接口服务

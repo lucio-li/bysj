@@ -11,7 +11,7 @@
     <select id="queryOne" parameterType="string" resultMap="BaseResultMap">
         select * from comments
     </select>
-    <insert id="insertOne" parameterType="model.Comments">
+    <insert id="insertOne" parameterType="model.human.Comments">
         insert into comments(moments_time, name, content_detail, create_time)
         values(#{momentsTime}, #{name}, #{contentDetail}, #{createTime})
     </insert>

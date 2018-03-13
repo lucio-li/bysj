@@ -1,41 +1,40 @@
-package controller;
+package controller.partment;
 
+
+import model.human.Comments;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import service.MomentsService;
+import service.CommentsService;
 import utils.ResponseUtils;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 朋友圈照片的展示，管理
+ * 朋友圈的评论的controller
  * Created by lq on 2017/12/13.
  */
 @Controller
-@RequestMapping("/moments")
-public class MomentsController {
+@RequestMapping("/human/comments")
+public class CommentsController {
     @Resource
-    private MomentsService momentsService;
+    private CommentsService commentsService;
 
     /**
      *
-     * @param request
+     * @param comments
      * @param response
-     * 获取所有的动态
+     * 新增评论
      * @return
      */
-    @RequestMapping("list")
-    public String  list(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping("add")
+    public String  add(Comments comments, HttpServletResponse response) {
         String  result = null;
-
         try {
-            result = momentsService.queryAll();
-
-            //System.out.println(momentsList.size());
+            result = commentsService.addOne(comments);
         } catch (Exception e) {
             e.printStackTrace();
+            result = "fail";
         }
 
 //        ObjectMapper mapper = new ObjectMapper();
@@ -43,7 +42,7 @@ public class MomentsController {
 //        ResponseUtils.renderJson(response, str);
 
 
-        ResponseUtils.renderJson(response, result);
+        ResponseUtils.renderJson(response, "{\"result\":\"" + result + "\"}");
         return null;
     }
 
@@ -51,12 +50,12 @@ public class MomentsController {
      * 删除一条动态
      */
     @RequestMapping("deleteOne")
-    public String deleteOne(HttpServletResponse response, String time) {
-        if (time == null || "".equals(time.trim())) {
+    public String deleteOne(HttpServletResponse response, String id) {
+        if (id == null || "".equals(id.trim())) {
             ResponseUtils.renderJson(response, "{\"result\": \"fail\"}");
             return null;
         }
-        String result = momentsService.deleteOne(time);
+        String result = commentsService.deleteOne(Integer.valueOf(id));
         ResponseUtils.renderJson(response, "{\"result\": \"" + result + "\"}");
         return null;
     }

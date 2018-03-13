@@ -3,26 +3,89 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="divport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="renderer" content="webkit">
 <title>公告</title>
 <link rel="stylesheet" href="../../admin/css/weui.css"/>
+<link rel="stylesheet" href="../../admin/css/moments_list.css"/>
 </head>
 <body>
 <div class="page" style="padding: 3px;">
-    <div class="weui-cells">
-        <h2 id="contentTitle" class="page__title">$notice.title</h2>
-        <div class="weui-cells__title">
-            <span class="time">时间：$notice.timeText</span>&nbsp;&nbsp;&nbsp;<span>作者：未知</span>
-        </div>
-        <div class="weui-cells__title">内容详情：</div>
-        <p class="weui-cells__tips">$notice.content
-        </p>
+##    <div class="weui-cells">
+##        <h2 id="contentTitle" class="page__title">$notice.title</h2>
+##        <div class="weui-cells__title">
+##            <span class="time">时间：$notice.timeText</span>&nbsp;&nbsp;&nbsp;<span>作者：未知</span>
+##        </div>
+##        <div class="weui-cells__title">内容详情2：</div>
+##        <p class="weui-cells__tips">$notice.content
+##        </p>
+##
+##    </div>
+    #foreach($moment in $momentsList)
 
+    <div class="moments">
+        <div class='momentsHeader' >
+            <image class='momentsUserImage' src="$moment.getAvatarUrl()"></image>
+            <div class="momentsTips weui-cells__title">
+                <text class="momentsLocation">$moment.getNickname()</text>
+                <text class="momentsTime">$moment.getTime()</text>
+            </div>
+##            <image class="delMoment" src="../../admin/images/deleteMoment.jpg" data-index="{{index}}" bindtap='deleteMoment'></image>
+        </div>
+        <div class="momentsContent">
+            <text>$moment.content</text>
+        </div>
+        <div class='momentsImageList'>
+
+            <div wx:for="{{moment.imageUrlLlist}}" wx:for-item="imageUrl" >
+                #foreach($imageUrl in $moment.imageUrlLlist)
+                    <image src='$imageUrl'  mode="aspectFill" class="momentsImage"></image>
+                #end
+##                <image src='../../admin/images/deleteMoment.jpg' data-index="{{imageUrl}}" mode="aspectFill" class="momentsImage" bindtap="clickImage"></image>
+##                <image src='../../admin/images/deleteMoment.jpg' data-index="{{imageUrl}}" mode="aspectFill" class="momentsImage" bindtap="clickImage"></image>
+##                <image src='../../admin/images/deleteMoment.jpg' data-index="{{imageUrl}}" mode="aspectFill" class="momentsImage" bindtap="clickImage"></image>
+##                <image src='../../admin/images/deleteMoment.jpg' data-index="{{imageUrl}}" mode="aspectFill" class="momentsImage" bindtap="clickImage"></image>
+##                <image src='../../admin/images/deleteMoment.jpg' data-index="{{imageUrl}}" mode="aspectFill" class="momentsImage" bindtap="clickImage"></image>
+##                <image src='../../admin/images/deleteMoment.jpg' data-index="{{imageUrl}}" mode="aspectFill" class="momentsImage" bindtap="clickImage"></image>
+##                <image src='../../admin/images/deleteMoment.jpg' data-index="{{imageUrl}}" mode="aspectFill" class="momentsImage" bindtap="clickImage"></image>
+##                <image src='../../admin/images/deleteMoment.jpg' data-index="{{imageUrl}}" mode="aspectFill" class="momentsImage" bindtap="clickImage"></image>
+##                <image src='../../admin/images/deleteMoment.jpg' data-index="{{imageUrl}}" mode="aspectFill" class="momentsImage" bindtap="clickImage"></image>
+
+            </div>
+        </div>
+
+        <div class='comments' >
+            <image class="commentBtn" src='../../admin/images/comment.png' mode="widthFix" data-time="$moment.getTime()" bindtap="clickComment" data-index="{{index}}"></image>
+        </div>
+        #if($moment.commentsList.size() > 0)
+            <div class="pl-other">
+                #foreach($comment in $moment.commentsList)
+                    <div>
+                        <!-- <text><text class="commentUserName">{{comment.name}}:</text>{{comment.contentDetail}}</text> -->
+                        <div class="pl-p"><text class="org">$comment.name</text>:$comment.contentDetail</div>
+                        <!-- <div class="pl-other">
+                            <div class="pl-p"><text class="org">{{comment.name}}</text>:{{comment.contentDetail}}</div>
+                        </div> -->
+                    </div>
+                #end
+            </div>
+        #end
     </div>
+    #end
         
 </div>
+<a class="weui-btn weui-btn_primary" href="../upload/index">上传照片</a>
 
+<div class="box_write" hidden>
+    <div class="section" >
+##        <image class="icon-white" src="../../../images/icon_pens.png" ></image>
+        <input placeholder="评论" class="commentInputFooter"/>
+    </div>
+    <button class="btn-text weui-btn" type="button" id="sendComment">发送</button>
+</div>
+
+<input type="text" id="nickname" hidden value="$nickname">
 <script type="text/javascript" src="../../admin/js/jquery.js"></script>
+<script type="text/javascript" src="../../admin/js/moments_list.js"></script>
 </body>
 </html>

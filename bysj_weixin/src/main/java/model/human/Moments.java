@@ -12,8 +12,17 @@ public class Moments {
 	private String location;
 	private String directory;
 	private String avatarUrl;
+	private String nickname;
 	private List<String> imageUrlLlist;
 	private List<Comments> commentsList;
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 
 	public List<Comments> getCommentsList() {
 		return commentsList;

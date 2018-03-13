@@ -15,5 +15,13 @@ public class AppConfig {
 
     //新增永久图文素材
     public static final String wx_material_new = "https://api.weixin.qq.com/cgi-bin/material/add_news";
+    public static  String timestamp ="";
+    public static String nonceStr ="";
+    public static String signature ="";
+    public static String jsapi_ticket ="";
+
+    public static String wxAccess_token ="";
+    public static String wxOpenid ="";
+
 
 }

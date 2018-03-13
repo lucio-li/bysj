@@ -19,7 +19,7 @@ public class StartTaskThread extends Thread{
                 String result = HttpRequestUtils.sendGet(AppConfig.wx_token_url, param);
                 JSONObject object = JSONObject.fromObject(result);
                 AppConfig.access_token = object.getString("access_token");
-
+                System.out.println("access_token" + AppConfig.access_token);
             }catch (Exception e){
                 e.printStackTrace();
                 logger.error("流程启动线程报错！");

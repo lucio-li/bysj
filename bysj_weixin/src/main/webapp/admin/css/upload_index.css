@@ -1,0 +1,95 @@
+/* pages/upload/upload.wxss */
+page {
+    background: #f0f0f0;
+}
+.container {
+    position: relative;
+    padding:0;
+}
+.header {
+    background: white;
+    width: 100%;
+}
+.header textarea {
+    width: 100%;
+}
+.chooseImageBtn {
+
+    margin-top: 50px;
+    margin-left: 25px;
+    margin-bottom: 25px;
+    width: 150px;
+    height: 150px;
+    display: block;
+}
+.chooseImages {
+    display: inline-block;
+    position: relative;
+    width: 28%;
+    margin: 0.5%;
+}
+.chooseImagesList {
+    position: relative;
+    width: 100%;
+
+
+    z-index: 10;
+}
+.deleteImageBtn {
+    width: 30%;
+    height: 30%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 100;
+}
+
+
+
+
+.timeTip {
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    margin: 20px 0;
+    background: white;
+}
+.timeTipLeft {
+    margin-left: 25px;
+}
+.timeTipRight {
+    float: right;
+    margin-right: 25px;
+}
+.locationTip {
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    margin-bottom: 350px;
+    background: white;
+}
+.locationTipLeft {
+    margin-left: 25px;
+}
+.locationTipRight {
+    float: right;
+    margin-right: 25px;
+}
+.booter {
+    background: white;
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    padding-top: 15px;
+}
+.booter button {
+    width: 95%;
+    height: 100px;
+    background: #fe93b1;
+    color: white;
+}
+
+
+
+
+

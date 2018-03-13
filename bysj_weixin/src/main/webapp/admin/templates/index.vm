@@ -57,7 +57,8 @@
     ##    <li><a href="./knowledge/list" target="right">目录管理</a></li>
         <li><a href="../human/notice/index" target="right">通知公告(微信端)</a></li>
         <li><a href="../human/notice/list" target="right">通知公告管理</a></li>
-        <li><a href="../human/notice/list" target="right">在线交流</a></li>
+        <li><a href="../human/moments/list" target="right">在线交流(微信端)</a></li>
+        <li><a href="../human/upload/index" target="right">上传照片(微信端)</a></li>
         <li><a href="../human/notice/index" target="right">已签到人员</a></li>
         <li><a href="../content/apply/list" target="right">未签到人员</a></li>
         <li><a href="./knowledge/list" target="right">任务指派</a></li>
