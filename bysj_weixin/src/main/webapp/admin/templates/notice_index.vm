@@ -13,7 +13,12 @@
     <div class="weui-cells">
         <h2 id="contentTitle" class="page__title">$notice.title</h2>
         <div class="weui-cells__title">
-            <span class="time">时间：$notice.timeText</span>&nbsp;&nbsp;&nbsp;<span>作者：未知</span>
+            <span class="time">时间：$notice.timeText</span>&nbsp;&nbsp;&nbsp;
+            #if($notice.author)
+                <span>作者：$notice.author</span>
+            #else
+                <span>作者：未知</span>
+            #end
         </div>
         <div class="weui-cells__title">内容详情：</div>
         <p class="weui-cells__tips">$notice.content

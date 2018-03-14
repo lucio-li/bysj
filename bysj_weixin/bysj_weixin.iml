@@ -107,5 +107,6 @@
     <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.9" level="project" />
     <orderEntry type="library" name="Maven: com.smartUpload:smartUpload:1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.zxing:core:3.3.2" level="project" />
   </component>
 </module>

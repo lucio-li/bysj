@@ -35,18 +35,27 @@ public class NoticeController {
     }
     @RequestMapping("/add")
     public void add(Notice notice, HttpServletResponse response) {
-        Notice noticeTmp = noticeService.queryOne();
-        if (noticeTmp == null) {
-            noticeService.insertOne(notice);
-        } else {
-            noticeTmp.setTitle(notice.getTitle());
-            noticeTmp.setAuthor(notice.getAuthor());
-            noticeTmp.setContent(notice.getContent());
-            noticeService.update(noticeTmp);
+        try {
+            Notice noticeTmp = noticeService.queryOne();
+            if (noticeTmp == null) {
+                noticeService.insertOne(notice);
+            } else {
+                noticeTmp.setTitle(notice.getTitle());
+                noticeTmp.setAuthor(notice.getAuthor());
+                noticeTmp.setContent(notice.getContent());
+                noticeService.update(noticeTmp);
+            }
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("result", "success");
+            ResponseUtils.renderJson(response, jsonObject.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("result", "error");
+            ResponseUtils.renderJson(response, jsonObject.toString());
         }
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result", "success");
-        ResponseUtils.renderJson(response, jsonObject.toString());
+
+
     }
 
 }

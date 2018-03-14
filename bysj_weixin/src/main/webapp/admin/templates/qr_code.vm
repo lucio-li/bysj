@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title>公告</title>
+<link rel="stylesheet" href="../../admin/css/weui.css"/>
+<style>
+    #output {
+        width: 256px;
+        margin: auto;
+        margin-top: 50px;
+    }
+    #text {
+        margin-bottom: 50px;
+    }
+</style>
+</head>
+<body>
+<div id="output">
+    <div id="text">欢迎使用签到系统, 请进入微信公众号扫码签到</div>
+</div>
+<script type="text/javascript" src="../../admin/js/jquery.js"></script>
+<script type="text/javascript" src="../../admin/js/jquery.qrcode.min.js"></script>
+
+<script>
+
+    jQuery(function(){
+
+        jQuery('#output').qrcode("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8b685c848534e218&redirect_uri=http%3a%2f%2fbysjwx.free.ngrok.cc%2fbysj_weixin%2fhuman%2fsign%2fcheck&response_type=code&scope=snsapi_userinfo&state=$nowTime#wechat_redirect");
+
+    })
+
+</script>
+</body>
+</html>

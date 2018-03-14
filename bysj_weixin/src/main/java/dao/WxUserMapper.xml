@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.WxUserMapper">
+    <resultMap id="BaseResultMap" type="model.human.WxUser">
+        <result column="openid" jdbcType="VARCHAR" property="openid"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="headimgurl" jdbcType="VARCHAR" property="headimgurl"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="signTime" jdbcType="VARCHAR" property="signTime"/>
+    </resultMap>
+    <insert id="insertOne" parameterType="model.human.WxUser">
+        insert into wx_user(`openid`, `nickname`, `headimgurl`, `username`)
+        values(#{openid}, #{nickname}, #{headimgurl}, #{username})
+    </insert>
+    <select id="queryByOpenid" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from wx_user WHERE openid = #{openid}
+    </select>
+    <update id="update"  parameterType="model.human.WxUser">
+        UPDATE wx_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="nickname != null and nickname != '' ">
+                nickname = #{nickname},
+            </if>
+            <if test="headimgurl != null and headimgurl != '' ">
+                headimgurl = #{headimgurl},
+            </if>
+            <if test="username != null ">
+                username = #{username},
+            </if>
+        </trim>
+        WHERE openid = #{openid}
+    </update>
+    <update id="updateSignTime"  parameterType="model.human.WxUser">
+        UPDATE wx_user
+        SET signTime = NOW()
+        WHERE openid = #{openid}
+    </update>
+
+    <select id="querySignUser" resultMap="BaseResultMap">
+        select `openid`, `nickname`, `headimgurl`,  `username`, DATE_FORMAT(signTime, '%Y-%m-%d %H:%i:%s') AS signTime from wx_user where to_days(signTime) = to_days(now());
+    </select>
+    <select id="queryUnSignUser" resultMap="BaseResultMap">
+        select `openid`, `nickname`, `headimgurl`,  `username`, DATE_FORMAT(signTime, '%Y-%m-%d %H:%i:%s') AS signTime from wx_user where to_days(signTime) != to_days(now());
+    </select>
+    <select id="queryAll" resultMap="BaseResultMap">
+        select `openid`, `nickname`, `headimgurl`,  `username`, DATE_FORMAT(signTime, '%Y-%m-%d %H:%i:%s') AS signTime from wx_user;
+    </select>
+    <delete id="deleteUser" parameterType="java.lang.String">
+        DELETE FROM wx_user WHERE openid = #{openid}
+    </delete>
+</mapper>

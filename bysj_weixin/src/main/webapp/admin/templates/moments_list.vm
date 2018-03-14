@@ -37,7 +37,7 @@
         </div>
         <div class='momentsImageList'>
 
-            <div wx:for="{{moment.imageUrlLlist}}" wx:for-item="imageUrl" >
+            <div>
                 #foreach($imageUrl in $moment.imageUrlLlist)
                     <image src='$imageUrl'  mode="aspectFill" class="momentsImage"></image>
                 #end

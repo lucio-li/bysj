@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title>签到结果</title>
+<link rel="stylesheet" href="../../admin/css/weui.css"/>
+</head>
+<body>
+<div class="container" id="container">
+    #if($result == "success")
+        <div class="page msg_success js_show">
+        <div class="weui-msg">
+            <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+            <div class="weui-msg__text-area">
+                <h2 class="weui-msg__title">签到成功</h2>
+                #if($nickname)
+                    <div class="weui-cells__title">
+                        <span class="time">用户微信名：$nickname</span>
+                    </div>
+                #else
+                    <div class="weui-cells__title">
+                        <span class="time">用户微信名：未知</span>
+                    </div>
+                #end
+
+                #if($username)
+                    <div class="weui-cells__title">
+                        <span class="time">用户姓名：$username</span>
+                    </div>
+                #end
+
+                <p class="weui-msg__desc"><span class="time">签到时间：$signTime</span></p>
+            </div>
+            <div class="weui-msg__opr-area">
+                <p class="weui-btn-area">
+                    <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8b685c848534e218&redirect_uri=http%3a%2f%2fbysjwx.free.ngrok.cc%2fbysj_weixin%2fhuman%2fmoments%2flist&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect" class="weui-btn weui-btn_primary">交流平台</a>
+                    <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8b685c848534e218&redirect_uri=http%3a%2f%2fbysjwx.free.ngrok.cc%2fbysj_weixin%2fhuman%2fupload%2findex&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect" class="weui-btn weui-btn_default">上传照片</a>
+                </p>
+            </div>
+            <div class="weui-msg__extra-area">
+                <div class="weui-footer">
+                    <p class="weui-footer__links">
+                        <a href="javascript:void(0);" class="weui-footer__link">农业大数据工程中心</a>
+                    </p>
+                    <p class="weui-footer__text">Copyright © 2008-2016 weui.io</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    #else
+        <div class="page msg_warn js_show">
+        <div class="weui-msg">
+            <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg"></i></div>
+            <div class="weui-msg__text-area">
+                <h2 class="weui-msg__title">签到失败</h2>
+                <p class="weui-msg__desc">请获取最新的二维码, 并在微信公众扫码签到</p>
+            </div>
+            <div class="weui-msg__opr-area">
+                <p class="weui-btn-area">
+##                    <a href="javascript:history.back();" class="weui-btn weui-btn_primary">交流平台</a>
+##                    <a href="javascript:history.back();" class="weui-btn weui-btn_default">上传照片</a>
+                </p>
+            </div>
+            <div class="weui-msg__extra-area">
+                <div class="weui-footer">
+                    <p class="weui-footer__links">
+                        <a href="javascript:void(0);" class="weui-footer__link">农业大数据工程中心</a>
+                    </p>
+                    <p class="weui-footer__text">Copyright © 2008-2016 weui.io</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    #end
+</div>
+
+
+
+##
+##<div class="page" style="padding: 3px;">
+##    <div class="weui-cells">
+##        #if($result == "success")
+##            <h2 id="contentTitle" class="page__title">签到成功</h2>
+##        #else
+##            <h2 id="contentTitle" class="page__title">签到失败，请获取最新的二维码, 并在微信公众扫码签到</h2>
+##        #end
+##        <div class="weui-cells__title">
+##            <span class="time">签到时间：$signTime</span>
+##        </div>
+##        <div class="weui-cells__title">
+##            <span class="time">用户微信名：张三</span>
+##        </div>
+##        #if($username)
+##            <div class="weui-cells__title">
+##                <span class="time">用户姓名：$username</span>
+##            </div>
+##        #end
+##    </div>
+##
+##</div>
+</body>
+</html>

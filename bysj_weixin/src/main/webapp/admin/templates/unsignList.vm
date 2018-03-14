@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)https://weui.io/#input -->
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>WeUI</title>
+    <link rel="stylesheet" href="../../admin/css/pintuer.css">
+    <link rel="stylesheet" href="../../admin/css/admin.css">
+    <script src="../../admin/js/jquery.js"></script>
+    <script src="../../admin/js/pintuer.js"></script>
+    <script src="../../admin/js/apply_new.js"></script>
+    <style>
+        #applyBtn {
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder">已签到的人员列表</strong></div>
+    <table class="table table-hover text-center" id="contentListPart">
+        <tr>
+            <th width="5%">序号</th>
+            <th width="20%">微信名</th>
+            <th width="15%">真实姓名</th>
+            <th width="30%">微信头像</th>
+            <th width="15%">上次签到时间</th>
+        </tr>
+        #foreach($wxUser in $wxUserList)
+
+            <tr class="contentList">
+                <td>$velocityCount</td>
+                <td>$wxUser.nickname</td>
+                #if($wxUser.username)
+                    <td>$wxUser.username</td>
+                #else
+                    <td>未知</td>
+                #end
+
+                <td><img src="$wxUser.headimgurl" alt="" width="120" height="50" /></td>
+                <td>
+                    $wxUser.signTime
+                </td>
+            </tr>
+        #end
+
+    </table>
+</div>
+<script type="text/javascript" src="../../admin/js/jquery.js"></script>
+</body>
+</html>

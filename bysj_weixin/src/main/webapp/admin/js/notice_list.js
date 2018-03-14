@@ -31,6 +31,10 @@ $(function() {
                     alert("操作失败，请稍后重试");
                     location.href = "./list";//刷新页面
                 }
+            },
+            error: function (res) {
+                alert("操作失败，请稍后重试");
+                location.href = "./list";//刷新页面
             }
         })
     })

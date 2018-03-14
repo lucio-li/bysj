@@ -15,7 +15,9 @@ import utils.ResponseUtils;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.util.Formatter;
@@ -26,6 +28,7 @@ import java.util.UUID;
 public class UploadController {
 	@Resource
     private UploadService uploadService;
+
     @Autowired
     private HttpServletRequest request;
     private  HttpServletResponse response;
@@ -166,5 +169,28 @@ public class UploadController {
         JSONObject jsonObject = JSONObject.fromObject(jsonCode);
         System.out.println("用户昵称" + jsonObject.getString("nickname"));
         return jsonObject;
+    }
+
+
+    @RequestMapping("/getImg")
+    public void getImg(String file, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            FileInputStream inputStream = new FileInputStream(file);
+            int i = inputStream.available();
+            //byte数组用于存放图片字节数据
+            byte[] buff = new byte[i];
+            inputStream.read(buff);
+            //记得关闭输入流
+            inputStream.close();
+            //设置发送到客户端的响应内容类型
+            response.setContentType("image/jpeg");
+            OutputStream out = response.getOutputStream();
+            out.write(buff);
+            //关闭响应输出流
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

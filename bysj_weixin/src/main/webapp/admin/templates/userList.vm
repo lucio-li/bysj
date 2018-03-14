@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)https://weui.io/#input -->
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>WeUI</title>
+    <link rel="stylesheet" href="../../admin/css/pintuer.css">
+    <link rel="stylesheet" href="../../admin/css/admin.css">
+    <script src="../../admin/js/jquery.js"></script>
+    <script src="../../admin/js/pintuer.js"></script>
+    <style>
+        #applyBtn {
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .updateBtn{
+            cursor:pointer
+        }
+    </style>
+</head>
+<body>
+<div class="panel admin-panel" id="header">
+    <div class="panel-head"><strong class="icon-reorder">人员列表</strong></div>
+    <table class="table table-hover text-center" id="contentListPart">
+        <tr>
+            <th width="5%">序号</th>
+            <th width="20%">微信名</th>
+            <th width="15%">真实姓名</th>
+            <th width="30%">微信头像</th>
+            <th width="15%">操作</th>
+        </tr>
+        #foreach($wxUser in $wxUserList)
+
+            <tr class="contentList">
+                <td>$velocityCount</td>
+                <td>$wxUser.nickname</td>
+                #if($wxUser.username)
+                    <td>$wxUser.username</td>
+                #else
+                    <td>未知</td>
+                #end
+
+                <td><img src="$wxUser.headimgurl" alt="" width="120" height="50" /></td>
+                <td>
+                    <div class="button-group">
+                        <a class="button border-main updateBtn" hred="#update" data-id="$wxUser.getOpenid()"><span class="icon-edit"></span>备注</a>
+                        <a class="deleteBtn button border-red" href="javascript:void(0)" data-id="$wxUser.getOpenid()" data-nickname="$wxUser.nickname"><span class="icon-trash-o"></span> 删除</a>
+                    </div>
+                </td>
+            </tr>
+        #end
+
+    </table>
+</div>
+
+<div class="panel admin-panel margin-top" id="update" hidden>
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>设置姓名备注</strong></div>
+    <div class="body-content">
+        <form id="addForm" method="post" enctype="multipart/form-data" class="form-x" >
+            <div class="form-group">
+                <div class="label">
+                    <label>微信名：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="wxNameText" value="" disabled/>
+                    <div class="tipss">
+                        微信名是用户微信名，不可修改
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>头像：</label>
+                </div>
+                <div class="field">
+                    <img src="" alt="" width="120" height="50" id="updateImgUrl"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>姓名：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="username" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <input type="text" value="" id="userOpenid" hidden>
+                <div class="field">
+                    <button id="passBtn" class="button bg-blue icon-check" type="button">确定</button>
+                    <button  id="refuseBtn" class="button bg-red icon-times" type="button"> 取消</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="../../admin/js/userList.js"></script>
+</body>
+</html>

@@ -26,7 +26,7 @@ public class MomentsServiceImpl implements MomentsService {
         for (int i = 0, len = momentsList.size(); i < len; i++) {
             Moments moments = momentsList.get(i);
             String directoryPath = moments.getDirectory();
-            String imageUrl = "http://localhost:8080/images/" + moments.numberDataTime() +"/";//文件夹名字
+            String imageUrl = "../upload/getImg?file=";//文件夹名字
             System.out.println(moments.numberDataTime());
             File directory = new File(directoryPath);
             String filename = "";
@@ -34,11 +34,11 @@ public class MomentsServiceImpl implements MomentsService {
             if (directory.exists()) {
                 File file[] = directory.listFiles();
                 for (int j = 0; j < file.length; j++) {
-                    filename = imageUrl + file[j].getName();
+                    filename = imageUrl + directoryPath + "/" + file[j].getName();
                     imageUrlList.add(filename);
                 }
             }
-
+            moments.setImageUrlLlist(imageUrlList);
         }
         ObjectMapper mapper = new ObjectMapper();
         String momentsJson = mapper.writeValueAsString(momentsList);

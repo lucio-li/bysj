@@ -60,7 +60,13 @@ $(function() {
 
             },
             success: function(res) {
-                alert(res.result);
+                if (res.result == "success") {
+                    alert("操作成功");
+                    location.href = "./list";
+                } else {
+                    alert("操作失败，请稍后重试");
+                    location.href = "./list";
+                }
             }
         })
     })

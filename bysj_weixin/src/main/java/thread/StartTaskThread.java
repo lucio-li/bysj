@@ -17,6 +17,7 @@ public class StartTaskThread extends Thread{
                 String param = "grant_type=client_credential&appid=" + AppConfig.appid +
                         "&secret=" + AppConfig.appsecret;
                 String result = HttpRequestUtils.sendGet(AppConfig.wx_token_url, param);
+                System.out.println(result);
                 JSONObject object = JSONObject.fromObject(result);
                 AppConfig.access_token = object.getString("access_token");
                 System.out.println("access_token" + AppConfig.access_token);
